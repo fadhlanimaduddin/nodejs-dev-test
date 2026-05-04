@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manajemen Produk</title>
+</head>
+<body style="font-family: Arial; padding: 50px;">
+    <h2>Manajemen Produk (Data Tersimpan di data.json)</h2>
+    <a href="/">KEMBALI KE HOME</a> | <a href="/logout">Logout</a>
+    <hr>
+
+    <!-- FORM CREATE -->
+    <h3>Tambah Produk Baru</h3>
+    <form action="/products/add" method="POST">
+        <label>Nama:</label> <input type="text" name="name" required>
+        <label>Kategori:</label> <input type="text" name="category" required>
+        <label>Harga:</label> <input type="number" name="price" required>
+        <button type="submit">Simpan</button>
+    </form>
+
+    <hr>
+
+    <!-- TABEL READ, EDIT, DELETE & CHECKBOX BUNDLE -->
+    <h3>Daftar Produk</h3>
+    <form action="/products/bundle" method="POST"> <!-- Form menyelimuti tabel -->
+        <table border="1" cellpadding="10" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Pilih (Bundle)</th>
+                    <th>ID</th>
+                    <th>Nama Produk</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (products.length === 0) { %>
+                    <tr><td colspan="6" style="text-align: center;">Belum ada data produk</td></tr>
+                <% } else { %>
+                    <% products.forEach(function(p) { %>
+                    <tr>
+                        <td style="text-align: center;">
+                            <input type="checkbox" name="selectedProducts" value="<%= p.id %>">
+                        </td>
+                        <td><%= p.id %></td>
+                        <td><%= p.name %></td>
+                        <td><%= p.category %></td>
+                        <td>Rp <%= p.price %></td>
+                        <td>
+                            <a href="/products/edit/<%= p.id %>">Edit</a> | 
+                            <a href="/products/delete/<%= p.id %>" onclick="return confirm('Yakin hapus?')">Hapus</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+        <br>
+        <button type="submit">Hitung Diskon Bundle untuk Produk Terpilih</button>
+    </form>
+
+    <hr>
+
+    <!-- HASIL DISKON BUNDLE -->
+    <% if (typeof bundles !== 'undefined' && bundles.length > 0) { %>
+        <h3>Hasil Simulasi Diskon (Nested Loop, If, Math)</h3>
+        <ul>
+            <% bundles.forEach(function(b) { %>
+                <li>
+                    <b><%= b.bundleName %></b><br>
+                    Harga Asli: Rp <%= b.originalPrice %> <br>
+                    Diskon (15%): Rp <%= b.discountAppied %> <br>
+                    <b>Harga Akhir: Rp <%= b.finalPrice %></b>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else if (typeof bundles !== 'undefined') { %>
+        <h3 style="color: red;">Tidak ada bundle diskon</h3>
+        <p style="color: red;">Syarat: Centang minimal 2 produk (Total harga min. Rp10.000).</p>
+    <% } %>
+
+</body>
+</html>

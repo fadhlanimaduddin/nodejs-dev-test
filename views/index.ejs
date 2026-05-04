@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>String Matcher</title>
+</head>
+<body style="font-family: Arial; padding: 50px;">
+<h2>Selamat datang, <%= username %>!</h2>
+    <a href="/products">MANAJEMEN PRODUK (CRUD)</a> | <a href="/logout">Logout</a>
+    <hr>
+
+    <h3>Fitur String Matching</h3>
+    <form action="/string-match" method="POST">
+        <label>Input 1:</label>
+        <input type="text" name="input1" value="<%= typeof input1 !== 'undefined' ? input1 : '' %>" required><br><br>
+        
+        <label>Input 2:</label>
+        <input type="text" name="input2" value="<%= typeof input2 !== 'undefined' ? input2 : '' %>" required><br><br>
+
+        <label>Type:</label>
+        <select name="type">
+            <option value="sensitive" <%= (typeof type !== 'undefined' && type === 'sensitive') ? 'selected' : '' %>>Case Sensitive</option>
+            <option value="non-sensitive" <%= (typeof type !== 'undefined' && type === 'non-sensitive') ? 'selected' : '' %>>Non Sensitive</option>
+        </select><br><br>
+
+        <button type="submit">Hitung Persentase</button>
+    </form>
+
+    <% if (typeof percentageResult !== 'undefined') { %>
+        <h4>Hasil:</h4>
+        <p>Karakter yang cocok: <%= matchCount %> / <%= totalCharacters %></p>
+        <p><b>Persentase: <%= percentageResult %></b></p>
+    <% } %>
+</body>
+</html>

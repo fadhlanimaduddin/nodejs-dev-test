@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Test</title>
+</head>
+<body style="font-family: Arial; padding: 50px;">
+    <h2>Login Form</h2>
+    <% if (typeof error !== 'undefined') { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form action="/login" method="POST">
+        <div>
+            <label>Username:</label><br>
+            <input type="text" name="username" required>
+        </div>
+        <br>
+        <div>
+            <label>Password:</label><br>
+            <input type="password" name="password" required>
+        </div>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "samsung s23",
+    "category": "handphone",
+    "price": 10000000,
+    "id": 1
+  },
+  {
+    "name": "macbook air",
+    "category": "laptop",
+    "price": 16000000,
+    "id": 2
+  }
+]
